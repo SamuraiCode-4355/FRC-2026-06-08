@@ -18,35 +18,29 @@ public class BeltSubsystem extends SubsystemBase {
   private static BeltSubsystem m_subIndex;
   private SparkMax m_belt;
   private SparkMax m_balls;
+  private SparkMax m_leftSupport;
+  private SparkMax m_rightSupport;
   private SparkMax m_topIndex;
-//  private SparkMax m_flexIndex;
 
   private SparkMaxConfig m_beltConfig;
   private SparkMaxConfig m_ballsConfig;
-//  private SparkMaxConfig m_topIndexConfig;
-//  private SparkMaxConfig m_flexIndexConfig;
 
   public BeltSubsystem() {
 
+    m_leftSupport = new SparkMax(MechanismConstants.kleftSupport, MotorType.kBrushless);
+    m_rightSupport = new SparkMax(MechanismConstants.krightSupport, MotorType.kBrushless);
     m_belt = new SparkMax(MechanismConstants.kBeltID, MotorType.kBrushless);
     m_balls = new SparkMax(MechanismConstants.kBallsID, MotorType.kBrushless);
-  //  m_topIndex = new SparkMax(18, MotorType.kBrushless);
-  //  m_flexIndex = new SparkMax(19, MotorType.kBrushless);
 
     m_beltConfig = new SparkMaxConfig();
     m_ballsConfig = new SparkMaxConfig();
-  //  m_topIndexConfig = new SparkMaxConfig();
-  //  m_flexIndexConfig = new SparkMaxConfig();
     
 
     m_beltConfig.smartCurrentLimit(40).idleMode(IdleMode.kCoast);
     m_ballsConfig.smartCurrentLimit(40).idleMode(IdleMode.kCoast);
-  //  m_topIndexConfig.smartCurrentLimit(40).idleMode(IdleMode.kCoast);
-  //  m_flexIndexConfig.smartCurrentLimit(40).idleMode(IdleMode.kCoast);
 
     m_belt.configure(m_beltConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     m_balls.configure(m_ballsConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-  //  m_topIndex.configure(m_topIndexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     
  }
 
@@ -59,24 +53,23 @@ public class BeltSubsystem extends SubsystemBase {
 
   public void transportFuel(double power){
     m_belt.set(power);
+    m_leftSupport.set(-0.5);
+    m_rightSupport.set(-0.5);
   }
 
-    public void UpFuel(double power){
+  public void UpFuel(double power){
     m_balls.set(-power);
-  //  m_topIndex.set(-power);
-  //  m_flexIndex.set(power);
   }
 
-      public void DownFuel(){
+  public void DownFuel(){
     m_balls.set(-0.9);
   }
 
-
   public void stop(){
+    m_leftSupport.set(0);
+    m_rightSupport.set(0);
     m_belt.set(0.0);
     m_balls.set(0);
-  //  m_topIndex.set(0);
-  //  m_flexIndex.set(0);
   }
 
   @Override
