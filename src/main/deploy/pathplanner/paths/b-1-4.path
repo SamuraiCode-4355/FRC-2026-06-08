@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.1789090909090907,
+        "y": 5.962375
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.5794619481121708,
+        "y": 6.045966947296434
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.1168295454545456,
+        "y": 4.7770909090909095
+      },
+      "prevControl": {
+        "x": 2.2318774998162128,
+        "y": 4.555136030349315
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -16.771223818630432
+  },
+  "reversed": false,
+  "folder": "AUTOS 2026 BLUE",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -37.874983651098084
+  },
+  "useDefaultConstraints": true
+}
