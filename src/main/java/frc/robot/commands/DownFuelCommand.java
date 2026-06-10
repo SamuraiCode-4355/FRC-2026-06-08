@@ -9,7 +9,6 @@ public class DownFuelCommand extends Command {
   public DownFuelCommand() {
 
     addRequirements(BeltSubsystem.getInstance(), ShooterSubsystem.getInstance());
-    // addRequirements(ShooterSubsystem.getInstance());
   }
 
   @Override

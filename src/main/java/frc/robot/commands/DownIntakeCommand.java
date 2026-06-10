@@ -21,9 +21,6 @@ public class DownIntakeCommand extends Command {
     if (DriverStation.isTeleopEnabled() && ArmSubsystem.getInstance().getValue() > -3.3 ){
       ArmSubsystem.getInstance().armDown();
     }
-    // else if (controller.b().getAsBoolean() == true){
-    //   ArmSubsystem.getInstance().armDown();
-    // }
     else if (DriverStation.isAutonomousEnabled()){
       ArmSubsystem.getInstance().armDown();
     }

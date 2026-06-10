@@ -2,20 +2,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.MechanismsSubsystem.BeltSubsystem;
-import frc.robot.subsystems.MechanismsSubsystem.ShooterSubsystem;
 
 public class BeltCommand extends Command {
 
   public BeltCommand() {
 
-    addRequirements(BeltSubsystem.getInstance(), ShooterSubsystem.getInstance());
-    // addRequirements(ShooterSubsystem.getInstance());
+    addRequirements(BeltSubsystem.getInstance());
   }
 
   @Override
   public void initialize() {
-
-    
   }
 
 

@@ -24,6 +24,8 @@ public class BeltSubsystem extends SubsystemBase {
 
   private SparkMaxConfig m_beltConfig;
   private SparkMaxConfig m_ballsConfig;
+  private SparkMaxConfig m_leftsupportConfig;
+  private SparkMaxConfig m_rightsupportConfig;
 
   public BeltSubsystem() {
 
@@ -34,10 +36,13 @@ public class BeltSubsystem extends SubsystemBase {
 
     m_beltConfig = new SparkMaxConfig();
     m_ballsConfig = new SparkMaxConfig();
-    
+    m_leftsupportConfig = new SparkMaxConfig();
+    m_rightsupportConfig = new SparkMaxConfig();
 
     m_beltConfig.smartCurrentLimit(40).idleMode(IdleMode.kCoast);
     m_ballsConfig.smartCurrentLimit(40).idleMode(IdleMode.kCoast);
+    m_leftsupportConfig.smartCurrentLimit(40).idleMode(IdleMode.kCoast);
+    m_rightsupportConfig.smartCurrentLimit(40).idleMode(IdleMode.kCoast);
 
     m_belt.configure(m_beltConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     m_balls.configure(m_ballsConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -75,8 +80,8 @@ public class BeltSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
 
-    SmartDashboard.putNumber("Motor Ampers", m_belt.getAppliedOutput());
-    SmartDashboard.putNumber("Pico", m_belt.getBusVoltage());
+    // SmartDashboard.putNumber("Motor Ampers", m_belt.getAppliedOutput());
+    // SmartDashboard.putNumber("Pico", m_belt.getBusVoltage());
 
 
   }

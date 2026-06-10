@@ -22,6 +22,8 @@ public final class Constants {
     public static final int kShootmotor2 = 15; //L_DOWN  
     public static final int kShootmotor3 = 16; //R_UP
     public static final int kShootmotor4 = 17; //L_UP  
+    public static final int kleftSupport = 30;
+    public static final int krightSupport = 32;
 
     public static final double kPShoot = 0.0000003; //0.0003
     public static final double kIShoot = 0.0002; //0.002

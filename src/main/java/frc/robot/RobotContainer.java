@@ -4,8 +4,6 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.MechanismsSubsystem.ArmSubsystem;
 import frc.robot.subsystems.MechanismsSubsystem.BeltSubsystem;
 import frc.robot.subsystems.MechanismsSubsystem.ShooterSubsystem;
-import frc.robot.subsystems.MechanismsSubsystem.SupportSubsystem;
-// import frc.robot.subsystems.MechanismsSubsystem.ShooterSubsystem;
 import frc.robot.subsystems.SubsystemSwerve.SwerveSubsystem;
 import frc.robot.commands.BeltCommand;
 import frc.robot.commands.DownFuelCommand;
@@ -55,6 +53,8 @@ private final SwerveSubsystem drivebase = new SwerveSubsystem();
      SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
+    //---------------------------------SwerveController------------------------------
+
   SwerveInputStream driveAngularVelocity =
   SwerveInputStream.of(drivebase.getSwerveDrive(),
                         () -> -driverController.getLeftY(),
@@ -100,11 +100,8 @@ private void configureBindings() {
     mechaController.b().whileTrue(new DownFuelCommand());
 
      new Trigger(() -> mechaController.getLeftTriggerAxis() > 0.1).whileTrue(new ShooterCommand(1700));    // Manual PID 1650
-    mechaController.a().whileTrue(new ShooterCommand(3200));
+      mechaController.a().whileTrue(new ShooterCommand(3200));
         mechaController.y().whileTrue(new ShooterCommand(400));
-
-     mechaController.povLeft().whileTrue(new InstantCommand(() -> SupportSubsystem.getInstance().startSupport()));
-     mechaController.povRight().whileTrue(new InstantCommand(() -> SupportSubsystem.getInstance().reverseSupport()));
 
     // mechaController.a().whileTrue(new InstantCommand(() -> ShooterSubsystem.getInstance().toggleSetpoint()));
     // mechaController.povLeft().onTrue(new InstantCommand(() -> ShooterSubsystem.getInstance().sumeFive()));
@@ -129,7 +126,6 @@ private void configureBindings() {
     )
 );
 
-  //-----------------------------SysIdController-------------
     // sysIdController.y().whileTrue(ShooterSubsystem.getInstance().sysIdQuasistatic(SysIdRoutine.Direction.kForward));
     // sysIdController.a().whileTrue(ShooterSubsystem.getInstance().sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
     // sysIdController.b().whileTrue(ShooterSubsystem.getInstance().sysIdDynamic(SysIdRoutine.Direction.kForward));
