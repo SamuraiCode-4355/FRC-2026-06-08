@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -31,6 +32,7 @@ private final SwerveSubsystem drivebase = new SwerveSubsystem();
   private final SendableChooser<Command> autoChooser;
   private final CommandXboxController driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
   private final CommandXboxController mechaController = new CommandXboxController(OperatorConstants.kMechaControllerPort);
+  private final CommandPS4Controller Ps4Drive = new CommandPS4Controller(2);
 
 
   public RobotContainer() {
@@ -42,7 +44,7 @@ private final SwerveSubsystem drivebase = new SwerveSubsystem();
     NamedCommands.registerCommand("Belt", new BeltCommand());
     NamedCommands.registerCommand("Belt", new BeltCommand());
     NamedCommands.registerCommand("IntakeUp", new UpIntakeCommand());
-    NamedCommands.registerCommand("IntakeDown", new DownIntakeCommand().withTimeout(0.3));     //Movi esta condicion en codigo, te recomendaria checarla en autonomos para ver si arregla algo. -Alexander
+    NamedCommands.registerCommand("IntakeDown", new DownIntakeCommand().withTimeout(0.3));
 
     NamedCommands.registerCommand("Intake", new IntakeCommand(false).withTimeout(5));
     // NamedCommands.registerCommand("EnableVision", new SwerveSubsystem().enableVisionAlign());
@@ -111,7 +113,7 @@ private void configureBindings() {
     
 
 
-    //----------------------------------DriverController-----------------------------------
+    //----------------------------------XboxController-----------------------------------
 
     new Trigger(() -> driverController.getLeftTriggerAxis() > 0.1).toggleOnTrue(new IntakeCommand(false));
     driverController.povDown().whileTrue(new IntakeCommand(true));
@@ -126,6 +128,20 @@ private void configureBindings() {
     )
 );
 
+    //----------------------------------PS4Controller-----------------------------------
+
+new Trigger(() -> Ps4Drive.getL2Axis() > 0.1).toggleOnTrue(new IntakeCommand(false));
+    Ps4Drive.povDown().whileTrue(new IntakeCommand(true));
+    Ps4Drive.R1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());    
+    Ps4Drive.square().onTrue(new InstantCommand (drivebase::zeroGyro, drivebase));
+    Ps4Drive.L1().toggleOnTrue(
+    drivebase.run(() ->
+        drivebase.autoAlign(
+            -Ps4Drive.getLeftY()*1.5,
+            -Ps4Drive.getLeftX()*1.5
+        )
+    )
+);
     // sysIdController.y().whileTrue(ShooterSubsystem.getInstance().sysIdQuasistatic(SysIdRoutine.Direction.kForward));
     // sysIdController.a().whileTrue(ShooterSubsystem.getInstance().sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
     // sysIdController.b().whileTrue(ShooterSubsystem.getInstance().sysIdDynamic(SysIdRoutine.Direction.kForward));

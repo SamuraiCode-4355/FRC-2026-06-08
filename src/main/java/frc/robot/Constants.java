@@ -15,7 +15,7 @@ public final class Constants {
 
     public static final int kBeltID = 9;
     public static final int kIntakeID = 10;
-    public static final int kArmID1 = 11;
+    public static final int kArmID1 = 37;
     public static final int kArmID2 = 12;
     public static final int kBallsID = 13;
     public static final int kShootmotor1 = 14; //R_DOWN
