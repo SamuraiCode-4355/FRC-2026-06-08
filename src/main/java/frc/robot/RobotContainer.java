@@ -1,9 +1,6 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.subsystems.MechanismsSubsystem.ArmSubsystem;
-import frc.robot.subsystems.MechanismsSubsystem.BeltSubsystem;
-import frc.robot.subsystems.MechanismsSubsystem.ShooterSubsystem;
 import frc.robot.subsystems.SubsystemSwerve.SwerveSubsystem;
 import frc.robot.commands.BeltCommand;
 import frc.robot.commands.DownFuelCommand;
@@ -11,6 +8,7 @@ import frc.robot.commands.DownIntakeCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.UpIntakeCommand;
+import frc.robot.commands.resetEncoderCommand;
 import swervelib.SwerveInputStream;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -27,12 +25,11 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
 private final SwerveSubsystem drivebase = new SwerveSubsystem();
-// private final ShooterSubsystem shooter = new ShooterSubsystem();
 
   private final SendableChooser<Command> autoChooser;
   private final CommandXboxController driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
   private final CommandXboxController mechaController = new CommandXboxController(OperatorConstants.kMechaControllerPort);
-  private final CommandPS4Controller Ps4Drive = new CommandPS4Controller(2);
+  private final CommandPS4Controller Ps4Drive = new CommandPS4Controller(OperatorConstants.kPS4DriverControllerPort);
 
 
   public RobotContainer() {
@@ -87,9 +84,6 @@ Command driveFieldOrientedAngularVelocity = drivebase.driveFieldOriented(driveAn
 private void configureBindings() {
 
     drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity);
-//     shooter.setDefaultCommand(
-//     new ShooterCommandNOPID(shooter)
-// );
 
     //---------------------------------MechanismController------------------------------
 
@@ -99,10 +93,12 @@ private void configureBindings() {
     mechaController.rightBumper().whileTrue(new DownIntakeCommand());
     mechaController.leftBumper().onTrue(new UpIntakeCommand());
 
+    mechaController.povDown().onTrue(new resetEncoderCommand());
+
     mechaController.b().whileTrue(new DownFuelCommand());
 
      new Trigger(() -> mechaController.getLeftTriggerAxis() > 0.1).whileTrue(new ShooterCommand(1700));    // Manual PID 1650
-      mechaController.a().whileTrue(new ShooterCommand(3200));
+      mechaController.a().whileTrue(new ShooterCommand(2500));
         mechaController.y().whileTrue(new ShooterCommand(400));
 
     // mechaController.a().whileTrue(new InstantCommand(() -> ShooterSubsystem.getInstance().toggleSetpoint()));
@@ -110,8 +106,6 @@ private void configureBindings() {
     // mechaController.povRight().onTrue(new InstantCommand(() -> ShooterSubsystem.getInstance().restFive()));
     // mechaController.povDown().onTrue(new InstantCommand(() -> ShooterSubsystem.getInstance().restTeen()));
     // mechaController.povUp().onTrue(new InstantCommand(() -> ShooterSubsystem.getInstance().sumeTeen()));
-    
-
 
     //----------------------------------XboxController-----------------------------------
 

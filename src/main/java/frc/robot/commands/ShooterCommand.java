@@ -12,7 +12,7 @@ public class ShooterCommand extends Command {
 
     private static final double upValue = 1.0;
     private static final double tolerance = 0.1;
-    private static final double rpmTolerance = 75.0;
+    private static final double rpmTolerance = 200.0;
 
     private final boolean useLimelight;
     private final double manualRPM;

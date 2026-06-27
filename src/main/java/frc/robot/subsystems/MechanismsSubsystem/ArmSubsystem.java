@@ -56,12 +56,15 @@ public class ArmSubsystem extends SubsystemBase {
   public void stopArm(){
     m_rightArm.set(0);
     m_leftArm.set(0);
-
   }
+  public void resetEncoder(){
+    m_leftArm.getEncoder().setPosition(0);
+    m_rightArm.getEncoder().setPosition(0);
+  }
+
   public double getValue(){
     return m_leftArm.getEncoder().getPosition();
   }
-
   
   @Override
   public void periodic() {

@@ -7,6 +7,7 @@ public final class Constants {
 
     public static final int kDriverControllerPort = 0;
     public static final int kMechaControllerPort = 1;
+    public static final int kPS4DriverControllerPort = 2;
     public static final double DEADBAND = .05;
     
   }
